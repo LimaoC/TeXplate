@@ -1,0 +1,30 @@
+\documentclass[12pt]{article}
+
+\usepackage{style}
+
+% ---------- Author and assignment details ---------- %
+\newcommand{\authorName}{}
+\newcommand{\studentID}{}
+\newcommand{\tutorialGroup}{}
+\newcommand{\courseCode}{}
+\newcommand{\assignmentName}{}
+\newcommand{\dueDate}{}
+
+% ----------- Title, header, and footer ---------- %
+\author{\authorName \ -- \studentID \ -- \tutorialGroup}
+\title{\courseCode \space \assignmentName}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\courseCode \space \assignmentName}
+\rhead{\dueDate}
+\rfoot{Page \thepage}
+
+% ---------- Document ---------- %
+\begin{document}
+
+\begin{titlingpage}
+    \maketitle
+\end{titlingpage}
+
+\end{document}

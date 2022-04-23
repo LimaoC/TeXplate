@@ -1,0 +1,90 @@
+% ---------- Packages ---------- %
+% Math symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{centernot}
+\usepackage{mathtools}
+\usepackage{physics}
+
+% Header and page setup
+\usepackage{fancyhdr}
+\usepackage[top=3cm, bottom=3cm, left=1.5cm, right=1.5cm]{geometry}
+\usepackage{titling}
+\usepackage{titlesec}
+
+% Images and figures
+\usepackage{graphicx}
+
+
+% ---------- Center title ---------- %
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\setlength{\headheight}{15pt}
+
+
+% ---------- Custom commands ---------- %
+% Symbol shortcuts
+% Number sets
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+% Probability
+\newcommand{\Prb}[1]{\mathbb{P}(#1)}
+\newcommand{\E}[1]{\mathbb{E}(#1)}
+\newcommand{\Var}[1]{\mathbb{V}\text{ar}(#1)}
+\newcommand{\Cov}[1]{\mathbb{C}\text{ov}(#1)}
+% Symbols
+\newcommand{\eps}{\varepsilon}
+
+% Auto-sized bracketing
+\DeclarePairedDelimiter\autobracket{(}{)}
+\DeclarePairedDelimiter\autosquarebracket{[}{]}
+\DeclarePairedDelimiter\autocurlybracket{\{}{\}}
+\DeclarePairedDelimiter\automagnitude{|}{|}
+\newcommand{\br}[1]{\autobracket*{#1}}
+\newcommand{\sqbr}[1]{\autosquarebracket*{#1}}
+\newcommand{\cubr}[1]{\autocurlybracket*{#1}}
+\newcommand{\mgnt}[1]{\automagnitude*{#1}}
+
+
+% ---------- Questions ---------- %
+\newcounter{questionCounter}
+\newcounter{subquestionCounter}[questionCounter]
+
+\providecommand{\question}{
+    \stepcounter{questionCounter}
+    \setcounter{subquestionCounter}{0}
+
+    \noindent{\begin{minipage}{\linewidth}
+        \vspace{5mm}
+        \noindent{\bf Question \thequestionCounter.}
+        \vspace{1mm}
+        \hrule
+        \vspace{3mm}
+    \end{minipage}}
+}
+
+% Subquestions
+\newenvironment{subquestions}{
+    \begin{enumerate}
+}{\end{enumerate}}
+
+% Subquestion in roman format - (i), (ii), (iii), ...
+\newcommand{\subquestionroman}{
+    \stepcounter{subquestionCounter}
+    \item[(\textbf{\roman{subquestionCounter}})]
+}
+
+% Subquestion in alphabetical format - (a), (b), (c), ...
+\newcommand{\subquestionalph}{
+    \stepcounter{subquestionCounter}
+    \item[(\textbf{\alph{subquestionCounter}})]
+}
+
+% Subquestion in numerical format - (1), (2), (3), ...
+\newcommand{\subquestionnum}{
+    \stepcounter{subquestionCounter}
+    \item[(\textbf{\arabic{subquestionCounter}})]
+}
