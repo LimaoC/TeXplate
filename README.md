@@ -90,3 +90,4 @@ There are some defined macros for common symbols to make them easier to type out
 There are also some useful packages that have been included in `style.sty` (which you can also add to). For example, the `physics` package provides `\dd` or `\dd{x}` for differentials, `\dv{x}` for ordinary derivatives, `\pdv{x}` for partial derivatives, etc.
 
 ## License
+(MIT License) See [LICENSE](https://github.com/LimaoC/assignment-texplate/blob/main/LICENSE).
