@@ -16,8 +16,15 @@
 % Images and figures
 \usepackage{graphicx}
 
+% Macros
+\usepackage{xstring}
 
-% ---------- Center title ---------- %
+% Environments
+\usepackage{enumitem}
+
+
+% ---------- Formatting ---------- %
+% Center title
 \renewcommand\maketitlehooka{\null\mbox{}\vfill}
 \renewcommand\maketitlehookd{\vfill\null}
 
@@ -25,19 +32,6 @@
 
 
 % ---------- Custom commands ---------- %
-% Symbol shortcuts
-% Number sets
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Q}{\mathbb{Q}}
-% Probability
-\newcommand{\Prb}[1]{\mathbb{P}(#1)}
-\newcommand{\E}[1]{\mathbb{E}(#1)}
-\newcommand{\Var}[1]{\mathbb{V}\text{ar}(#1)}
-\newcommand{\Cov}[1]{\mathbb{C}\text{ov}(#1)}
-% Symbols
-\newcommand{\eps}{\varepsilon}
-
 % Auto-sized bracketing
 \DeclarePairedDelimiter\autobracket{(}{)}
 \DeclarePairedDelimiter\autosquarebracket{[}{]}
@@ -45,8 +39,58 @@
 \DeclarePairedDelimiter\automagnitude{|}{|}
 \newcommand{\br}[1]{\autobracket*{#1}}
 \newcommand{\sqbr}[1]{\autosquarebracket*{#1}}
-\newcommand{\cubr}[1]{\autocurlybracket*{#1}}
+\newcommand{\curbr}[1]{\autocurlybracket*{#1}}
 \newcommand{\mgnt}[1]{\automagnitude*{#1}}
+
+% Sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+
+% Probability
+\newcommand{\Prob}[2][br]{
+    % Probability measure.
+    % #1 (optional): bracket type. br for round brackets (default), sqbr for
+    % square brackets.
+    % #2: contents.
+    \IfEqCase{#1}{
+        {br}{\mathbb{P}\br{#2}}
+        {sqbr}{\mathbb{P}\sqbr{#2}}
+    }[\PackageError{Prob}{Undefined option to Prob: #1}{}]
+}
+\newcommand{\E}[2][br]{
+    % Expectation.
+    % #1 (optional): bracket type. br for round brackets (default), sqbr for
+    % square brackets.
+    % #2: contents.
+    \IfEqCase{#1}{
+        {br}{\mathbb{E}\br{#2}}
+        {sqbr}{\mathbb{E}\sqbr{#2}}
+    }[\PackageError{E}{Undefined option to E: #1}{}]
+}
+\newcommand{\Var}[2][br]{
+    % Variance.
+    % #1 (optional): bracket type. br for round brackets (default), sqbr for
+    % square brackets.
+    % #2: contents.
+    \IfEqCase{#1}{
+        {br}{\mathbb{V}\text{ar}\br{#2}}
+        {sqbr}{\mathbb{V}\text{ar}\sqbr{#2}}
+    }[\PackageError{Var}{Undefined option to Var: #1}{}]
+}
+\newcommand{\Cov}[2][br]{
+    % Covariance.
+    % #1 (optional): bracket type. br for round brackets (default), sqbr for
+    % square brackets.
+    % #2: contents.
+    \IfEqCase{#1}{
+        {br}{\mathbb{C}\text{ov}\br{#2}}
+        {sqbr}{\mathbb{C}\text{ov}\sqbr{#2}}
+    }[\PackageError{Cov}{Undefined option to Cov: #1}{}]
+}
+
+% Symbols
+\newcommand{\eps}{\varepsilon}
 
 
 % ---------- Questions ---------- %
