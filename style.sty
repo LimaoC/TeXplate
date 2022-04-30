@@ -61,11 +61,12 @@
 \newcommand{\E}[2][br]{
     % Expectation.
     % #1 (optional): bracket type. br for round brackets (default), sqbr for
-    % square brackets.
+    % square brackets, and nobr for no brackets.
     % #2: contents.
     \IfEqCase{#1}{
         {br}{\mathbb{E}\br{#2}}
         {sqbr}{\mathbb{E}\sqbr{#2}}
+        {nobr}{\mathbb{E}#2}
     }[\PackageError{E}{Undefined option to E: #1}{}]
 }
 \newcommand{\Var}[2][br]{
