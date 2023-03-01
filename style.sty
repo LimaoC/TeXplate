@@ -101,6 +101,20 @@
     \mathbb{C}\text{ov}\SubSup@Util
 }
 
+\newcommand{\PGF}[2][br]{ % Probability Generating Function
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
+    \mathcal{G}\SubSup@Util
+}
+
+\newcommand{\MGF}[2][br]{ % Moment Generating Function
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
+    \mathcal{M}\SubSup@Util
+}
+
 % Symbols
 \newcommand{\eps}{\varepsilon}
 
