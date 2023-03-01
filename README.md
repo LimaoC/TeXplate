@@ -68,7 +68,7 @@ These are the custom macros defined for common symbols I use.
 |------------|-----------------------------|-----------------------|------------------------------|
 | `\br{}`    | Auto-sized round brackets.  | `\br{\frac{a}{b}}`    | $\left(\frac{a}{b}\right)$   |
 | `\sqbr{}`  | Auto-sized square brackets. | `\sqbr{\frac{a}{b}}`  | $\left[\frac{a}{b}\right]$   |
-| `\curbr{}` | Auto-sized curly brackets.  | `\curbr{\frac{a}{b}}` | $\left\{\frac{a}{b}\right\}$ |
+| `\curbr{}` | Auto-sized curly brackets.  | `\curbr{\frac{a}{b}}` | $\left\lbrace\frac{a}{b}\right\rbrace$ |
 | `\mgnt{}`  | Auto-sized pipes (\|).      | `\mgnt{\frac{a}{b}}`  | $\left\|\frac{a}{b}\right\|$ |
 
 
