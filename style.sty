@@ -32,6 +32,31 @@
 
 
 % ---------- Custom commands ---------- %
+% Utility
+\newcommand{\Bracket@Util}[2]{
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    % Surrounds the contents of #2 with auto-sized brackets (type specified by
+    % #1).
+    \IfEqCase{#1}{
+        {br}{\br{#2}}
+        {sqbr}{\sqbr{#2}}
+        {nobr}{#2}
+    }[\PackageError{Bracket@Util}{Undefined option to Bracket@Util: #1}{}]
+}
+
+\newcommand{\SubSupPostExpr@Util}{}
+\newcommand{\SubSup@Util}{
+    % Recursively parses subscripts and superscripts for custom commands and
+    % macros, after which \SubSupPostExpr@Util is executed (use \renewcommand
+    % to change \SubSupPostExpr@Util before using \SubSup@Util).
+    % Reference: https://tex.stackexchange.com/questions/334186/create-a-new-command-that-supports-superscript-and-subscript-syntax
+    \@ifnextchar{_}{\Sub@Util}{
+    \@ifnextchar{^}{\Sup@Util}{\SubSupPostExpr@Util}}
+}
+\newcommand{\Sub@Util}[2]{_{#2}\SubSup@Util}
+\newcommand{\Sup@Util}[2]{^{#2}\SubSup@Util}
+
 % Auto-sized bracketing
 \DeclarePairedDelimiter\autobracket{(}{)}
 \DeclarePairedDelimiter\autosquarebracket{[}{]}
@@ -48,46 +73,32 @@
 \newcommand{\Q}{\mathbb{Q}}
 
 % Probability
-\newcommand{\Prob}[2][br]{
-    % Probability measure.
-    % #1 (optional): bracket type. br for round brackets (default), sqbr for
-    % square brackets.
-    % #2: contents.
-    \IfEqCase{#1}{
-        {br}{\mathbb{P}\br{#2}}
-        {sqbr}{\mathbb{P}\sqbr{#2}}
-    }[\PackageError{Prob}{Undefined option to Prob: #1}{}]
+\newcommand{\Prob}[2][br]{ % Probability measure
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
+    \mathbb{P}\SubSup@Util
 }
-\newcommand{\E}[2][br]{
-    % Expectation.
-    % #1 (optional): bracket type. br for round brackets (default), sqbr for
-    % square brackets, and nobr for no brackets.
-    % #2: contents.
-    \IfEqCase{#1}{
-        {br}{\mathbb{E}\br{#2}}
-        {sqbr}{\mathbb{E}\sqbr{#2}}
-        {nobr}{\mathbb{E}#2}
-    }[\PackageError{E}{Undefined option to E: #1}{}]
+
+\newcommand{\E}[2][br]{ % Expectation
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
+    \mathbb{E}\SubSup@Util
 }
-\newcommand{\Var}[2][br]{
-    % Variance.
-    % #1 (optional): bracket type. br for round brackets (default), sqbr for
-    % square brackets.
-    % #2: contents.
-    \IfEqCase{#1}{
-        {br}{\mathbb{V}\text{ar}\br{#2}}
-        {sqbr}{\mathbb{V}\text{ar}\sqbr{#2}}
-    }[\PackageError{Var}{Undefined option to Var: #1}{}]
+
+\newcommand{\Var}[2][br]{ % Variance
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
+    \mathbb{V}\text{ar}\SubSup@Util
 }
-\newcommand{\Cov}[2][br]{
-    % Covariance.
-    % #1 (optional): bracket type. br for round brackets (default), sqbr for
-    % square brackets.
-    % #2: contents.
-    \IfEqCase{#1}{
-        {br}{\mathbb{C}\text{ov}\br{#2}}
-        {sqbr}{\mathbb{C}\text{ov}\sqbr{#2}}
-    }[\PackageError{Cov}{Undefined option to Cov: #1}{}]
+
+\newcommand{\Cov}[2][br]{ % Covariance
+    % #1: Bracket type - br (round), sqbr (square), nobr (none)
+    % #2: Contents
+    \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
+    \mathbb{C}\text{ov}\SubSup@Util
 }
 
 % Symbols

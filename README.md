@@ -75,17 +75,19 @@ You can also use `\subquestionalph` for alphabetical parts, i.e. `(a), (b), (c)`
 There are some defined macros for common symbols to make them easier to type out. You can view the exhaustive list in `style.sty`, but here are a few examples:
 
 - Number sets
-  - `\R` for the set of real numbers
-  - `\N` for the set of natural numbers
+  - `\R` for the set of real numbers, $\mathbb{R}$
+  - `\N` for the set of natural numbers, $\mathbb{N}$
   - etc.
 - Probability
-  - `\E{x}` for the (properly formatted) expectation of `x`
-  - `\Var{x}` for the (properly formatted) variance of `x`
+  - `\E{X}` for the (properly formatted) expectation of `X`, $\mathbb{E}(X)$
+  - `\Var{X}` for the (properly formatted) variance of `X`, $\mathbb{V}\text{ar}(X)$
   - etc.
 - Auto-sized brackets
   - `\br{x}` for automatically-sized round brackets
   - `\sqbr{x}` for automatically-sized square brackets
   - etc.
+
+These custom macros also support subscript and superscripts; e.g. `\E{x}_\theta` yields $\mathbb{E}_\theta(X)$, and `\Var{X}^2` yields $\mathbb{V}\text{ar}^2(X)$.
 
 There are also some useful packages that have been included in `style.sty` (which you can also add to). For example, the `physics` package provides `\dd` or `\dd{x}` for differentials, `\dv{x}` for ordinary derivatives, `\pdv{x}` for partial derivatives, etc.
 
