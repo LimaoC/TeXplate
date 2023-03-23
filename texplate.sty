@@ -79,7 +79,7 @@
 \newcommand{\Q}{\mathbb{Q}}
 
 % Mathcal shortcuts
-\newcommand{\AA}{\mathcal{A}}
+\renewcommand{\AA}{\mathcal{A}}
 \newcommand{\BB}{\mathcal{B}}
 \newcommand{\CC}{\mathcal{C}}
 \newcommand{\DD}{\mathcal{D}}
@@ -97,7 +97,7 @@
 \newcommand{\PP}{\mathcal{P}}
 \newcommand{\QQ}{\mathcal{Q}}
 \newcommand{\RR}{\mathcal{R}}
-\newcommand{\SS}{\mathcal{S}}
+\renewcommand{\SS}{\mathcal{S}}
 \newcommand{\TT}{\mathcal{T}}
 \newcommand{\UU}{\mathcal{U}}
 \newcommand{\VV}{\mathcal{V}}
@@ -139,14 +139,14 @@
     % #1: Bracket type - br (round), sqbr (square), nobr (none)
     % #2: Contents
     \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
-    \mathcal{G}\SubSup@Util
+    \GG\SubSup@Util
 }
 
 \newcommand{\MGF}[2][br]{ % Moment Generating Function
     % #1: Bracket type - br (round), sqbr (square), nobr (none)
     % #2: Contents
     \renewcommand{\SubSupPostExpr@Util}{\Bracket@Util{#1}{#2}}
-    \mathcal{M}\SubSup@Util
+    \MM\SubSup@Util
 }
 
 % Symbols
