@@ -1,101 +1,96 @@
-![Template Screenshot](assets/screenshot.png)
+![Assignment Example 1](assets/assignment-example-1.png)
 
 ---
 
-<h3 align="center">Assignment Texplate</h3>
+<h3 align="center">Limao's TeXplates</h3>
 
-This is a LaTeX template that you can use for your math assignments and homework. It provides a cleanly formatted document layout, simple commands to add new questions and subquestions, and some useful miscellaneous macros.
+This repo is a collection of the LaTeX templates that I use.
+
+- Under `assignment/` is a template you can use for your assignment and homework. It provides a nicely formatted document layout and simple commands to format question numbers and headings.
+
+Note: I don't really use any LaTeX-defined macros. I use snippets instead, which you can find [here](https://github.com/LimaoC/dotfiles/blob/main/.config/nvim/UltiSnips/tex.snippets).
 
 ## Usage
 
-HTTPS:
+To use these template files, you can clone this repository and copy the template files over for each LaTeX project you have. If you want to receive updates when I make changes, you'll want to `git pull` the repository from time to time.
 
-```
-git clone https://github.com/your-username/assignment-texplate.git assignment-name
-cd assignment-name
-```
+### Assignment Template
 
-SSH:
+Copy over the `assignment-texplate.sty` file to the directory where your LaTeX project is, and add `\usepackage{assignment-texplate}` to the preamble. You can change your details (the details that appear on the title page) in the `assignment-texplate.sty` file.
 
-```
-git clone git@github.com:LimaoC/assignment-texplate.git assignment-name
-cd assignment-name
-```
+See the `assignment-example.tex` file for an example usage of the template.
 
-There are two options for usage; you can either clone the repository for each assignment/homework piece you do, or just copy the `texplate.sty` file to the directory you want to use it in and add the following command to the preamble:
-```tex
-\usepackage{style}
-```
+If you like, you can also choose to start from the `assignment-empty.tex` file.
 
-There may occasionally be updates to the template; to receive these updates, run
-
-```
-git pull
-```
-
-### Questions
-`\question` inserts a new question, which starts at 1. To start at a different number, use
+#### Questions
+`\question` inserts a new question (starting from 1). To start at or skip to a different number, use
 
 ```tex
-\setcounter{questionCounter}{<questionNumber> - 1}
+\questiongoto{<number>}
 ```
 
-just before the first `\question` and replace `<questionNumber>` with the question number you want to start at.
+to set the next `\question` to start from `<number>`.
 
-### Subquestions
+#### Subquestions
 
-For questions with multiple parts, you can use the `subquestions` environment like so:
+For questions with multiple parts, you can use the `squestions`, `ssquestions`, and `sssquestions` environments. Each environment has their own set of item types;
+
+- `\squestionalph`, `\ssquestionalph`, `\sssquestionalph` for alphabetical enumerating
+- `\squestionnum`, `\ssquestionnum`, `\sssquestionnum` for numerical enumerating
+- `\squestionroman`, `\ssquestionroman`, `\sssquestionroman` for roman numeral enumerating
+
+Example usage:
 
 ```tex
-\begin{subquestions}
-    \subquestionroman
-        This creates subquestion part (i).
-    \subquestionroman
-        This creates subquestion part (ii).
-    \subquestionroman
-        This creates subquestion part (iii).
-\end{subquestions}
+\question
+\begin{squestions}
+    \squestionroman
+    This creates subquestion part (i).
+    \begin{ssquestions}
+        \ssquestionalph
+        This creates subsubquestion part (a).
+
+        \ssquestionalph
+        This creates subsubquestion part (b).
+    \end{ssquestions}
+
+    \squestionroman
+    This creates subquestion part (ii).
+
+    \squestionroman
+    This creates subquestion part (iii).
+    \begin{ssquestions}
+        \ssquestionnum
+        This creates subsubquestion part (1).
+
+        \ssquestionnum
+        This creates subsubquestion part (2).
+        \begin{sssquestions}
+            \sssquestionroman
+            This creates subsubsubquestion part (i).
+
+            \sssquestiongoto{5}
+            \sssquestionroman
+            Look! I'm at subsubsubquestion part (v) now.
+
+            \sssquestionroman
+            This creates subsubsubquestion part (vi).
+        \end{sssquestions}
+
+        \ssquestionnum
+        This creates subsubquestion part (3).
+    \end{ssquestions}
+
+    \squestionroman
+    This creates subquestion part (iv).
+\end{squestions}
+
+\questiongoto{7}
+\question
+Look! I'm at question 7 now.
 ```
 
-You can also use `\subquestionalph` for alphabetical parts, i.e. `(a), (b), (c)`, or `\subquestionnum` for numerical parts, i.e. `(1), (2), (3)`. This can be changed in `texplate.sty`, or if you'd like, you can define your own too.
-
-### Miscellaneous Macros
-
-These are the custom macros defined for common symbols I use.
-
-#### Auto-sized Bracketing
-| Code       | Description                 | Example               | Output                       |
-|------------|-----------------------------|-----------------------|------------------------------|
-| `\br{}`    | Auto-sized round brackets.  | `\br{\frac{a}{b}}`    | $\left(\frac{a}{b}\right)$   |
-| `\sqbr{}`  | Auto-sized square brackets. | `\sqbr{\frac{a}{b}}`  | $\left[\frac{a}{b}\right]$   |
-| `\curbr{}` | Auto-sized curly brackets.  | `\curbr{\frac{a}{b}}` | $\left\lbrace\frac{a}{b}\right\rbrace$ |
-| `\mgnt{}`  | Auto-sized pipes (\|).      | `\mgnt{\frac{a}{b}}`  | $\left\|\frac{a}{b}\right\|$ |
-
-
-#### Sets of Numbers
-| Code   | Description          | Output       |
-|--------|----------------------|--------------|
-| `\R`   | Set of real numbers. | $\mathbb{R}$ |
-| `\N`   | Set of naturals.     | $\mathbb{N}$ |
-| `\Q`   | Set of rationals.    | $\mathbb{Q}$ |
-
-#### Statistics
-Each of these macros takes an optional argument `[br]` to specify the bracket type used (`br` for round brackets, `sqbr` for square brackets, `nobr` for no brackets). The default is `br`. These also support subscripts and superscripts; e.g. `\E{x}_\theta` yields $\mathbb{E}_\theta(X)$, and `\Var{X}^2` yields $\mathbb{V}\text{ar}^2(X)$.
-| Code          | Description                      | Example             | Output                      |
-|---------------|----------------------------------|---------------------|-----------------------------|
-| `\Prob[br]{}` | Probability measure.             | `\Prob{X \leq x}`   | $\mathbb{P}(X \leq x)$      |
-| `\E[br]{}`    | Expectation.                     | `\E[nobr]{X}`       | $\mathbb{E}X$               |
-| `\Var[br]{}`  | Variance.                        | `\Var[sqbr]{X\| Y}` | $\mathbb{V}\text{ar}[X\|Y]$ |
-| `\Cov[br]{}`  | Covariance.                      | `\Cov{X, X}`        | $\mathbb{C}\text{ov}(X, X)$ |
-| `\PGF[br]{}`  | Probability Generating Function. | `\PGF{z}`           | $\mathcal{G}(z)$            |
-| `\MGF[br]{}`  | Moment Generating Function.      | `\MGF{m}`           | $\mathcal{M}(m)$            |
-
-#### Symbols
-| Code   | Description               | Output        |
-|--------|---------------------------|---------------|
-| `\eps` | Alternate epsilon symbol. | $\varepsilon$ |
-
-There are also some useful packages that have been included in `texplate.sty` (which you can also add to). For example, the `physics` package provides `\dd` or `\dd{x}` for differentials, `\dv{x}` for ordinary derivatives, `\pdv{x}` for partial derivatives, etc.
+![Assignment Example 2](assets/assignment-example-2.png)
 
 ## License
 (MIT License) See [LICENSE](https://github.com/LimaoC/assignment-texplate/blob/main/LICENSE).

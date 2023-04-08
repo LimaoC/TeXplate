@@ -1,0 +1,135 @@
+% ===== CHANGE YOUR DETAILS HERE ============================================= %
+
+\newcommand{\authorName}{YourName}
+\newcommand{\studentID}{YourStudentID}
+\newcommand{\tutorialGroup}{YourTutorialGroup}
+\newcommand{\courseCode}{MATH1001}
+\newcommand{\assignmentName}{Assignment 1}
+\newcommand{\dueDate}{1pm Monday, 1st January 2022}
+
+% ===== Packages ============================================================= %
+
+% Header and document setup
+\usepackage{fancyhdr}               % Fancy page headers and footers
+\usepackage[top=3cm,
+            bottom=3cm,
+            left=1.5cm,
+            right=1.5cm]{geometry}  % Document dimension configuration
+\usepackage{titling}                % Custom typesetting of \maketitle
+\usepackage{titlesec}               % Select alternative section titles
+
+% Mathematical
+\usepackage{amsmath}    % AMS mathematical facilities for LaTeX
+\usepackage{amssymb}    % AMS TeX fonts
+\usepackage{amsthm}     % AMS theorem typesetting
+\usepackage{mathtools}  % Mathematical tools to use with amsmath
+
+% Images and figures
+\usepackage{graphicx}  % Enhanced support for graphics
+
+% Miscellaneous
+\usepackage{centernot}  % Centred \not command
+\usepackage{xstring}    % String manipulation for LaTeX
+\usepackage{enumitem}   % Control layout of itemize, enumerate, description
+
+% ===== Formatting =========================================================== %
+
+% Center title
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\setlength{\headheight}{15pt}  % Vertical height of header
+\setlength{\parindent}{0pt}  % Set \noindent for all paragraphs globally 
+
+% ===== Page title, header, footer setup ===================================== %
+
+\author{\authorName \ -- \studentID \ -- \tutorialGroup}
+\title{\courseCode \space \assignmentName}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\courseCode \space \assignmentName}
+\rhead{Due \dueDate}
+\rfoot{Page \thepage}
+
+% ===== Question ============================================================= %
+
+\newcounter{questioncounter}
+\newcounter{squestioncounter}[questioncounter]
+\newcounter{ssquestioncounter}[squestioncounter]
+\newcounter{sssquestioncounter}[ssquestioncounter]
+
+% Commands for skipping question parts
+\providecommand{\questiongoto}[1]{\setcounter{questioncounter}{#1 - 1}}
+\providecommand{\squestiongoto}[1]{\setcounter{squestioncounter}{#1 - 1}}
+\providecommand{\ssquestiongoto}[1]{\setcounter{ssquestioncounter}{#1 - 1}}
+\providecommand{\sssquestiongoto}[1]{\setcounter{sssquestioncounter}{#1 - 1}}
+
+% Question command
+\providecommand{\question}{
+    \stepcounter{questioncounter}
+
+    \noindent{\begin{minipage}{\linewidth}
+        \vspace{5mm}
+        \noindent{\bf Question \thequestioncounter.}
+        \vspace{1mm}
+        \hrule
+        \vspace{3mm}
+    \end{minipage}}
+}
+
+% Subquestion environments
+\newenvironment{squestions}{
+    \begin{enumerate}
+}{\end{enumerate}}
+
+\newenvironment{ssquestions}{
+    \begin{enumerate}
+}{\end{enumerate}}
+
+\newenvironment{sssquestions}{
+    \begin{enumerate}
+}{\end{enumerate}}
+
+% Roman format - (i), (ii), (iii), ...
+\newcommand{\squestionroman}{
+    \stepcounter{squestioncounter}
+    \item[(\textbf{\roman{squestioncounter}})]
+}
+\newcommand{\ssquestionroman}{
+    \stepcounter{ssquestioncounter}
+    \item[(\textbf{\roman{ssquestioncounter}})]
+}
+\newcommand{\sssquestionroman}{
+    \stepcounter{sssquestioncounter}
+    \item[(\textbf{\roman{sssquestioncounter}})]
+}
+
+% Alphabetical format - (a), (b), (c), ...
+\newcommand{\squestionalph}{
+    \stepcounter{squestioncounter}
+    \item[(\textbf{\alph{squestioncounter}})]
+}
+\newcommand{\ssquestionalph}{
+    \stepcounter{ssquestioncounter}
+    \item[(\textbf{\alph{ssquestioncounter}})]
+}
+\newcommand{\sssquestionalph}{
+    \stepcounter{sssquestioncounter}
+    \item[(\textbf{\alph{sssquestioncounter}})]
+}
+
+% Numerical format - (1), (2), (3), ...
+\newcommand{\squestionnum}{
+    \stepcounter{squestioncounter}
+    \item[(\textbf{\arabic{squestioncounter}})]
+}
+\newcommand{\ssquestionnum}{
+    \stepcounter{ssquestioncounter}
+    \item[(\textbf{\arabic{ssquestioncounter}})]
+}
+\newcommand{\sssquestionnum}{
+    \stepcounter{sssquestioncounter}
+    \item[(\textbf{\arabic{sssquestioncounter}})]
+}
+
