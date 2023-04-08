@@ -16,11 +16,15 @@ To use these template files, you can clone this repository and copy the template
 
 ### Assignment Template
 
-Copy over the `assignment-texplate.sty` file to the directory where your LaTeX project is, and add `\usepackage{assignment-texplate}` to the preamble. You can change your details (the details that appear on the title page) in the `assignment-texplate.sty` file.
+Copy over the `assignment/texplate.sty` file to the directory where your LaTeX project is, and add
+```tex
+\usepackage{assignment-texplate}
+```
+to the preamble. You can change your details (the details that appear on the title page) in the `assignment/texplate.sty` file.
 
-See the `assignment-example.tex` file for an example usage of the template.
+See the `assignment/example.tex` file for an example usage of the template.
 
-If you like, you can also choose to start from the `assignment-empty.tex` file.
+If you like, you can also choose to start from the `assignment/empty.tex` file.
 
 #### Questions
 `\question` inserts a new question (starting from 1). To start at or skip to a different number, use
@@ -94,3 +98,4 @@ Look! I'm at question 7 now.
 
 ## License
 (MIT License) See [LICENSE](https://github.com/LimaoC/assignment-texplate/blob/main/LICENSE).
+
