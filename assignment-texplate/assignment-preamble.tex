@@ -1,0 +1,41 @@
+\documentclass[12pt]{article}
+
+\usepackage{assignment-texplate}
+
+\usepackage{enumitem}    % Control layout of itemize, enumerate, description
+\usepackage[top=3cm,
+            bottom=3cm,
+            left=1.5cm,
+            right=1.5cm
+           ]{geometry}   % Document dimension configuration
+\usepackage{graphicx}    % Enhanced support for graphics
+
+% ===== CHANGE YOUR DETAILS HERE ============================================= %
+
+\newcommand{\authorName}{YourName}
+\newcommand{\studentID}{YourStudentID}
+\newcommand{\tutorialGroup}{YourTutorialGroup}
+\newcommand{\courseCode}{MATH1001}
+\newcommand{\assignmentName}{Assignment 1}
+\newcommand{\dueDate}{1pm Monday, 1st January 2022}
+
+% ===== Page title, header, footer setup ===================================== %
+
+\author{\authorName \ -- \studentID \ -- \tutorialGroup}
+\title{\courseCode \space \assignmentName}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\courseCode \space \assignmentName}
+\rhead{Due \dueDate}
+\rfoot{Page \thepage}
+
+% ===== Formatting =========================================================== %
+
+% Center title
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\setlength{\headheight}{15pt}  % Vertical height of header
+\setlength{\parindent}{0pt}  % Set \noindent for all paragraphs globally 
+
