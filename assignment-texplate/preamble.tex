@@ -39,3 +39,14 @@
 \setlength{\headheight}{15pt}  % Vertical height of header
 \setlength{\parindent}{0pt}  % Set \noindent for all paragraphs globally 
 
+% ===== Miscenalleous ======================================================== %
+
+% Use slant variant for \leq and \geq; this is just a personal preference
+\renewcommand{\leq}{\leqslant}
+\renewcommand{\geq}{\geqslant}
+
+% Properly typesetted differential operator; note this is already provided if
+% you use the `physics` package
+\providecommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\bs}{\boldsymbol}
+

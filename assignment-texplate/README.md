@@ -12,7 +12,7 @@ For Linux users, this will usually be `~/texmf/`, so you'd put the `.sty` file u
 
 ## Usage
 
-There is a template preamble file `assignment-preamble.tex` that you can use to start from. This is where you can change the details that appear on the title page. You can start fresh with `empty.tex` (which imports the `assignment-preamble.tex` file).
+There is a template preamble file `preamble.tex` that you can use to start from. This is where you can change the details that appear on the title page. You can start fresh with `empty.tex` (which imports the `preamble.tex` file).
 
 See the `assignment/example.tex` file for an example usage of the template.
 
