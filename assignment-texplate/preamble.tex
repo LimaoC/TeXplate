@@ -48,6 +48,10 @@
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\geq}{\geqslant}
 
+% Use the (nicer looking) alternative for \emptyset (\varnothing)
+\let\oldemptyset\emptyset
+\renewcommand{\emptyset}{\varnothing}
+
 % Properly typesetted differential operator; note this is already provided if
 % you use the `physics` package
 \providecommand{\dd}{\mathop{}\!\mathrm{d}}
