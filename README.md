@@ -28,7 +28,6 @@ Follow the steps below to install the templates in this repository.
     ```
     cd ~/texmf/tex/latex
     ln -s path/TeXplate/assignment-texplate assignment-texplate
-    ln -s path/TeXplate/cheatsheet-texplate cheatsheet-texplate
     ln -s path/TeXplate/limao-preamble limao-preamble
     ```
     For more information about installing LaTeX packages this way, see https://en.wikibooks.org/wiki/LaTeX/Installing_Extra_Packages.
