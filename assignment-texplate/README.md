@@ -1,5 +1,7 @@
 # Assignment TeXplate
 
+![Assignment TeXplate 1](../assets/assignment-texplate-1.png)
+
 ## Installation
 
 The easy way: You can just copy over the `assignment-texplate.sty` file to your assignment folder, and do this for every assignment where you'll be using the package.
@@ -14,7 +16,13 @@ For Linux users, this will usually be `~/texmf/`, so you'd put the `.sty` file u
 
 There is a template preamble file `preamble.tex` that you can use to start from. This is where you can change the details that appear on the title page. You can start fresh with `empty.tex` (which imports the `preamble.tex` file).
 
-See the `assignment/example.tex` file for an example usage of the template.
+See the `example.tex` file for an example usage of the template. If you'd prefer not to have a title page, comment out these lines in your `.tex` file:
+
+```tex
+\begin{titlingpage}
+    \maketitle
+\end{titlingpage}
+```
 
 ### Questions
 `\question` inserts a new question (starting from 1). To start at or skip to a different number, use
@@ -85,3 +93,4 @@ Look! I'm at question 7 now.
 ```
 
 ![Assignment TeXplate 2](../assets/assignment-texplate-2.png)
+
