@@ -1,0 +1,210 @@
+\input{preamble}
+
+\begin{document}
+
+\section{Branching Processes}
+\begin{itemize}
+    \item $X_{i,n}$: number of offspring of $i$th individual in $n$th generation
+    \item $S_n$: number of individuals in $n$th generation
+    \item $S_n = \sum_{i=1}^{S_{n-1}}X_{i,n-1}$
+    \item $X_{i,n}$ iid, $S_n$ independent of $X_{i,n}$'s
+    \item $\mathbb{E}S_n = \mu^n$, $\text{Var}(S_n) = \begin{cases}
+        \sigma^2\mu^{n-1} \left(\frac{1 - \mu^n}{1 - \mu}\right), & \mu \neq 1 \\
+        \sigma^2n, & \mu = 1
+    \end{cases}$
+    \item $\eta_n = \mathbb{P}(S_n = 0) = \mathcal{G}_n(0), \eta = \displaystyle\lim_{n\to\infty} \eta_n$
+    \item $\eta$ given by smallest non-negative root of $\eta = \mathcal{G}(\eta)$
+    \item $\eta = \begin{cases}
+        1, & \mu < 1 \text{ or } (\mu = 1, \sigma^2 > 0) \\
+        0, & \mu \geq 1, \sigma^2 = 0 \\
+        < 1, & \mu > 0, \sigma^2 > 0
+    \end{cases}$
+    \item Subcritical: $\mu < 1$, critical: $\mu = 1$, supercritical: $\mu > 1$
+    \item Denote $\mathcal{G}(z) = \mathbb{E}z^X$ and $\mathcal{G}_n(z) = \mathbb{E}z^{S_n}$. \\ Then $\mathcal{G}_n(z) = \mathcal{G}_{n-1}(\mathcal{G}(z)) = \mathcal{G}(\mathcal{G}_{n-1}(z))$
+\end{itemize}
+
+\section{Random Walks}
+\begin{itemize}
+    \item $S_0 = x_0, S_n = S_{n-1} + X_n = x_0 + \sum_{i=1}^n X_i$
+    \item $\tau_d = \inf\{n \in \mathbb{N} : S_n = d\}$ (first hitting time)
+\end{itemize}
+
+\section{(Discrete Time) Markov Chains}
+\begin{itemize}
+    \item If $|E| = r$ and all eigenvalues $\lambda_1, \dots, \lambda_r$ of $P$ are distinct, then $P$ is diagonalizable, i.e. $P = V\Lambda V^{-1}$, $P^n = V\Lambda^n V^{-1}$
+    \item If $P$ has eigenvalues $\lambda_k$, then $\text{tr}(P) = \sum_k \lambda_k, \det(P) = \prod_k \lambda_k$
+    \item Spectral decomposition: $P = V\Lambda W$, where
+    \begin{itemize}
+        \item $\boldsymbol{v}_i$ (col) are the right eigenvectors and satisfy $P\boldsymbol{v}_i = \lambda_i \boldsymbol{v}_i$
+        \item $\boldsymbol{w}_i$ (row) are the left eigenvectors and satisfy $\boldsymbol{w}_i P = \lambda_i \boldsymbol{w}_i$
+        \item $\boldsymbol{w}_i\boldsymbol{v}_i = 1$ for all $i$, $\boldsymbol{w}_j\boldsymbol{v}_i = 0$ for all $i \neq j$
+        \item $P^n = \lambda_1^n R_1 + \cdots + \lambda_r^n R_r$ where $R_i := \boldsymbol{v}_i\boldsymbol{w}_i$
+        \item $\lambda_1 = 1, \boldsymbol{v}_1 = \boldsymbol{1}$ since $P\boldsymbol{1} = 1 \cdot \boldsymbol{1}$. Also $R_1 = (\boldsymbol{\pi}, \dots, \boldsymbol{\pi})^T$
+        \item If $|\lambda_k| < 1$ for $k = 2, \dots, r$ then $\lim_{n\to\infty}P^n = (\boldsymbol{\pi}, \dots, \boldsymbol{\pi})^T$.
+    \end{itemize}
+    \item $\tau_y = \inf\{n > 0 : X_n = y\}$ (first hitting time of state $y$)
+    \item $\tau_y^{(k)} = \inf\{n > \tau_y^{(k-1)} : X_n = y\}$ ($k$th hitting time of state $y$)
+    \item $r_{yy} = \mathbb{P}_y(\tau_y < \infty)$ (start and return to state $y$ in finite time)
+    \item $r_{xy} = \mathbb{P}_x(\tau_y < \infty)$ (start at $x$, go to state $y$ in finite time)
+    \item $r_{yy}^{(k)} = \mathbb{P}_y(\tau_y^{(k)} < \infty)$, $r_{xy}^{(k)} = \mathbb{P}_x(\tau_y^{(k)} < \infty)$, $r_{yy}^{(k)} = (r_{yy})^k$
+    \item If $r_{yy} < 1$ then $\lim_{k\to\infty} r_{yy}^{(k)} \to 0$, and $y$ is a transient state
+    \item If $r_{yy} = 1$ then $r_{yy}^{(k)} = 1$ for all $k$, and $y$ is a recurrent state
+    \item If $r_{xy} > 0$, then $x \to y$, else $x \not\to y$. $x \to y$, $y \to x \iff x \leftrightarrow y$
+    \item L: If $x$ is recurrent and $x \to y$, then $y$ is recurrent and $y \to x$ (and thus $x \leftrightarrow y$) (i.e. recurrence is a class property)
+    \item L: If $x \to y$ and $r_{yx} < 1$ then $x$ is transient (i.e. transience is a class property)
+    \item $A \subseteq E$ is a communicating class if $x \leftrightarrow$ for all $x, y \in A$ and for any $z \in A^c$ there is no $x \in A$ such that $x \leftrightarrow z$
+    \begin{itemize}
+        \item $A$ irreducible if there is a single communicating class ($A = E$)
+        \item $A$ is closed if $r_{xy} = 0$ for $x \in A, y \in A^c$ (equivalently, $\sum_{y\in A} r_{xy} = 1$ for all $x \in A$)
+        \item If $A = \{a\}$ then $a$ is called absorbing
+    \end{itemize}
+    \item L: If $C \subseteq E$ is a finite closed communicating class, then all $x \in C$ are recurrent
+    \item L: If $x \leftrightarrow y$ then $x$ and $y$ have the same period. Moreover, if $P_{xx} > 0$ then $x$ is aperiodic
+    \item Global balance: $\sum_{x\in E}\pi_x P_{xy} = \pi_y$ for all $y \in E$
+    \item Local balance: $\pi_x P_{xy} = \pi_y P_{yx}$ for all $x, y \in E$
+    \item Local balance $\implies$ global balance
+    \item If $(\pi_x, x \in E)$ satisfies GB and $\boldsymbol{\pi 1} = 1$ then it is stationary
+    \item Doubly stochastic: $\sum_{x\in E} P_{xy} = 1$ for all $y \in E$
+    \item L: If $|E| < \infty$ and $P$ doubly stochastic, then $\boldsymbol{\pi} = \frac{1}{|E|}(1, 1, \dots, 1)$ is stationary for $P$
+    \item For a M.C. $(X_n, n = 0,1,2,\dots)$, $Y_m := X_{n-m}$ (for $m = 0, \dots, n$) is the reversed chain with transition probabilities $\tilde{P}_{ij} = \pi_j P_{ji} / \pi_i$. If $X$ satisfies local balance, then so does $Y$ and $X$ is called reversible in stationarity
+    \item Kolmogorov Cycle Condition: For an irreducible $X$, $X$ is reversible in stationarity iff $P_{ij} > 0 \implies P_{ji} > 0$ and for any ``loop" $x_0, x_1, \dots, x_n = x_0$ where $\prod_{i=1}^n P_{x_i, x_{i-1}} > 0$, it also holds that $\prod_{i=1}^n P_{x_i, x_{i-1}} = \prod_{i=1}^n P_{x_{i-1}, x_i}$
+    \item KCC holds for irreducible $X \implies$ stationary distribution
+    \item Positive recurrent: $\mathbb{E}_x(\tau_x) < \infty$. Null recurrent: $\mathbb{E}_x(\tau_x) = \infty$
+    \item If $|E| < \infty$, then $\tau_x < \infty$ so all recurrent states are +ve recurrent
+    \item T: If $X$ is irreducible and +ve recurrent, then $\exists$ a unique stationary distribution $\boldsymbol{\pi}$. If $X$ is also aperiodic, then $\displaystyle\lim_{n\to\infty}\boldsymbol{\pi}^{(n)} = \boldsymbol{\pi}$.
+    \item For an irreducible MC, $\exists$ a stationary distribution $\boldsymbol{\pi}$ $\iff$ some state $x \in E$ is +ve recurrent $\iff$ all states are +ve recurrent
+\end{itemize}
+
+\section{Poisson Processes}
+\begin{itemize}
+    \item Counting process $(N(t), t \geq 0)$. $N(0) = 0$, $N(t) \in \mathbb{N}$ for all $t \geq 0$, and for $0 \leq s < t$, $N(t) - N(s)$ records \# events in $(s, t]$
+    \item Poisson process $(N(t), t \geq 0)$:
+    \begin{itemize}
+        \item Homogeneous PP: For any interval $\mathcal{I} \subseteq \mathbb{R}^+$, $N(\mathcal{I}) \sim \text{Poi}(\lambda|\mathcal{I}|)$
+        \item Non-homogeneous PP: $N((a,b]) \sim \text{Poi}\left(\int_a^b \lambda(s) ds \right)$
+        \item For disjoint $\mathcal{I}_1, \dots, \mathcal{I}_n$, $N(\mathcal{I}_1), \dots, N(\mathcal{I}_n)$ are independent
+    \end{itemize}
+    \item $\{N(t) \geq n\} \equiv \{T_n \leq n\}$ where $T_n$ are the arrival/event times
+    \item L: If $A_1, A_2, \dots \stackrel{\text{iid}}{\sim} \text{Exp}(\lambda)$, the corresponding counting process $(N(t), t \geq 0)$ is a Poisson process with rate $\lambda$
+    \item Spatial Poisson process $(N(t), t \geq 0)$, $E \subseteq \mathbb{R}^d$:
+    \begin{itemize}
+        \item $N(\emptyset) = 0$
+        \item Homogeneous PP: For any $A \subseteq E$, $N(A) \sim \text{Poi}(\lambda |A|)$
+        \item Non-homogeneous PP: $N(A) \sim \text{Poi}\left(\int_A \lambda(\boldsymbol{x})d\boldsymbol{x}\right)$
+        \item For disjoint $A_1, \dots, A_n$, $N(A_1), \dots, N(A_n)$ are independent
+    \end{itemize}
+    \item Thinning: rate $\bar{\lambda} \geq \sup_{0\leq S \leq T}\lambda(s)$ and prob. $p(s) = \lambda(s)/\bar{\lambda}$
+\end{itemize}
+
+\section{(Continuous Time) Markov Chains}
+\begin{itemize}
+    \item For a CTMC, we have
+    \begin{itemize}
+        \item The ``holding time" parameters $q_i, i \in E$
+        \item $K(i,j)$: given the chain ``jumps" and it is in state $i$, the probability we ``jump" to state $j$. $K(i,i) = 0$ for all $i \in E$
+    \end{itemize}
+    \item $Q = (q_{x,y}, x, y \in E)$
+    \begin{itemize}
+        \item $\sum_{y\in E} q_{x,y} = 0$ (row sums are zero)
+        \item $Q$ is singular (non-invertible), and has $0$ as an eigenvalue
+        \item $K_{x,y} = \frac{q_{x,y}}{-q_{x,x}} + \mathbb{I}_{\{x=y\}}, q_x = -q_{x,x}$
+    \end{itemize}
+    \item $M/M/c$ queues
+    \begin{itemize}
+        \item $A \sim \text{Exp}(\lambda)$ arrival rate, $S \sim \text{Exp}(\mu)$ serving rate
+        \item $\min\{A,S\} \sim \text{Exp}(\lambda + \mu) \implies q_x = \lambda + \mu$
+        \item $M/M/1$: positive recurrent if $\lambda < \mu$ \\ $K_{x,x+1} = \mathbb{P}(A < S) = \frac{\lambda}{\lambda + \mu}$, $K_{x,x-1} = \mathbb{P}(A > S) = \frac{\mu}{\lambda + \mu}$
+        \item $M/M/c$: positive recurrent if $\lambda < c\mu$, behaves like $M/M/\infty$ when there are enough servers
+        \item $M/M/\infty$: positive recurrent
+        \item $M/M/c/K$: irreducible, positive recurrent
+    \end{itemize}
+    \item The matrix $P_t = (P_t(x,y), x,y \in E)$ satisfies
+    \begin{itemize}
+        \item $P_0 = I$, $P_t' = QP_t$ for all $t > 0$
+        \item Under standard conditions, $P_t' = P_tQ$, unique soln $P_t = e^{tQ}$
+    \end{itemize}
+    \item $\boldsymbol{\pi}^{(t)} = \boldsymbol{\pi}^{(0)}P_t$ for all $t \geq 0$
+    \item Limiting distribution: $\boldsymbol{\pi}^{(\infty)} = \displaystyle\lim_{t\to\infty} \boldsymbol{\pi}^{(t)} = \boldsymbol{\pi}^{(0)} \displaystyle\lim_{t\to\infty} P_t$
+    \item Stationary distribution: $\boldsymbol{\pi}P_t = \boldsymbol{\pi}$ for all $t \geq 0$
+    \item Spectral decomposition:
+    \begin{itemize}
+        \item $|E| = p, Q = \lambda_1R_1 + \cdots + \lambda_pR_p$
+        \item $P_t = e^{tQ} = e^{\lambda_1t} R_1 + \cdots + e^{\lambda_pt}R_p$ and, for $\lambda_k = -\alpha_k + i\beta_k$, \\ $P_t = R_1 + \sum_{k=0}^p e^{-\alpha_k t} \left(\cos(\beta_kt) + i\sin(\beta_kt)\right)R_k$
+        \item If $P_t = e^{tQ}$ and all eigenvalues are distinct and the real part of non-zero eigenvalues is strictly negative, then $\lim_{t\to\infty} P_t = R_1$ (limiting distribution)
+    \end{itemize}
+    \item Finite $|E|$ and irreducible positive recurrent chain $\implies$ if $\boldsymbol{\pi}$ is a distribution on $E$ s.t. $\boldsymbol{\pi}Q = \boldsymbol{0}$, then $\boldsymbol{\pi}P_t = \boldsymbol{\pi}$ for all $t \geq 0$ (stationary distribution)
+    \item T: Irreducible recurrent $X \implies$ $\displaystyle\lim_{n\to\infty} \mathbb{P}_x(X_t = y) = \pi_y$ for all $x \in E$ s.t. $\pi_y \geq 0$ with strict inequality if $y$ is positive recurrent. In the latter case, we also have $\boldsymbol{\pi}Q = \boldsymbol{0}$ and $\boldsymbol{\pi1} = \boldsymbol{1}$ (stationary distribution)
+    \item Similar KCC for CTMCs: $\prod_{i=1}^n q(x_{i-1}, x_i) = \prod_{i=1}^n q(x_i, x_{i-1})$
+    \item Detailed/local balance: $\pi_x q_{xy} = \pi_y q_{yx}$ for $x, y \in E$.
+    \item Detailed balance $\iff$ KCC holds
+\end{itemize}
+
+\section{(Intro) Probabilistic Measure Theory}
+\begin{itemize}
+    \item De Morgan's laws: $\displaystyle\left(\cup_{n=1}^\infty A_n\right)^c = \cap_{n=1}^\infty A_n^c, \left(\cap_{n=1}^\infty A_n\right)^c = \cup_{n=1}^\infty A_n^c$
+    \item For finite $\Omega$, we can take $\mathcal{F} = \mathcal{P}(\Omega)$
+    \item A collection of subsets $\mathcal{F}$ of $\Omega$ is an algebra if (1) $\Omega \in \mathcal{F}$, (2) $A \in \mathcal{F} \implies A^c \in \mathcal{F}$, (3) $A, B \in \mathcal{F} \implies A \cup B \in \mathcal{F}$
+    \item A (non-empty) collection $\mathcal{F}$ of sets is a monotone class if
+    \begin{itemize}
+        \item If $A_1, A_2, \dots \in \mathcal{F}$ s.t. $A_n \subseteq A_{n+1}$, then $\cup_{n=1}^\infty A_n \in \mathcal{F}$
+        \item If $A_1, A_2, \dots \in \mathcal{F}$ s.t. $A_n \supseteq A_{n+1}$, then $\cap_{n=1}^\infty A_n \in \mathcal{F}$
+    \end{itemize}
+    \item A collection of subsets $\mathcal{F}$ of $\Omega$ is a $\sigma$-algebra if (1) $\Omega \in \mathcal{F}$, (2) $A \in \mathcal{F} \implies A^c \in \mathcal{F}$, (3) $A_1, A_2, \dots \in \mathcal{F} \implies \cup_{n=1}^\infty A_n \in \mathcal{F}$
+    \item $\sigma$-algebra $\iff$ algebra + monotone class
+    \item Borel $\sigma$-algebra on $\Omega = \mathbb{R}$ given by $\mathscr{B}(\mathbb{R}) = \sigma((-\infty, a) : a \in \mathbb{R})$
+    \begin{itemize}
+        \item Borel $\sigma$-algebra on $A \subseteq \mathbb{R}$. Take $\mathscr{B}(A) = \mathscr{B}(\mathbb{R}) \cap A.$
+        \item $\mathscr{B}(\mathbb{R}^2) = \sigma((-\infty, a_1) \times (-\infty, a_2) : a_1, a_2 \in \mathbb{R}$
+    \end{itemize}
+    \item Extended reals: $\bar{\mathbb{R}} = \mathbb{R} \cup \{-\infty, \infty\}$. $\mathscr{B}(\bar{\mathbb{R}}) \equiv \bar{\mathscr{B}}$
+    \item Kolmogorov Axioms for $\mathbb{P}: \mathcal{F} \to \mathbb{R}$: (1) $\mathbb{P}(\Omega) = 1$, (2) $\mathbb{P}(A) \geq 0$ for all $A \in \mathcal{F}$, (3) $A_1, A_2, \dots$ mutually disjoint $\implies \mathbb{P}(\cup_{n=1}^\infty A_n) = \sum_{n=1}^\infty \mathbb{P}(A_n)$
+    \item Boole's inequality: $\mathbb{P}(\cup_{n=1}^\infty A_n) \leq \sum_{n=1}^\infty A_n$
+    \item $\displaystyle A_1 \subseteq A_2 \subseteq \cdots \Rightarrow \lim_{n\to\infty}\mathbb{P}(A_n) = \mathbb{P}(\cup_{n=1}^\infty A_n)$ (cont from below)
+    \item $\displaystyle A_1 \supseteq A_2 \supseteq \cdots \Rightarrow \lim_{n\to\infty} \mathbb{P}(A_n) = \mathbb{P}(\cap_{n=1}^\infty A_n)$ (from above)
+    \item $\displaystyle\{A_n \ \text{i.o.}\} = \cap_{m=1}^\infty \cup_{n\geq m} A_n =: \limsup_{n} A_n$ \\ ``infinitely often": for each $m \geq 1$, $\exists n \geq m$ s.t. $A_n$ occurs
+    \item $\displaystyle\{A_n \ \text{a.b.f.m.}\} = \cup_{m=1}^\infty \cap_{n\geq m} A_n =: \liminf_n A_n$ \\ ``all but finitely many": $\exists m \geq 1$ s.t. for each $n \geq m$, $A_n$ occurs
+    \item Borel-Cantelli Lemmas. Countably infinite $A_1, A_2, \dots$
+    \begin{itemize}
+        \item If $\sum_{n=1}^\infty \mathbb{P}(A_n) < \infty$, then $\mathbb{P}(A_n \ \text{i.o.}) = 0$
+        \item If $A_n$ are mutually independent and $\sum_{n=1}^\infty \mathbb{P}(A_n) = +\infty$, then $\mathbb{P}(A_n \ \text{i.o.}) = 1$
+    \end{itemize}
+    \item Given $(\Omega, \mathcal{F}, \mathbb{P})$, r.v. is a function $X : \Omega \to \mathbb{R}$ that is measurable: for every $B \in \mathscr{B}(\mathbb{R})$, the pre-image under $X$, $X^{-1}(B) := \{\omega\in\Omega : X(\omega) \in \mathscr{B}\}$, belongs to $\mathcal{F}$.
+    \item $\mu_X: \mathscr{B} \to [0,1]$, $\mu_X(B) = \mathbb{P}(X^{-1}(B)) \forall B \in \mathscr{B}$ (distribution fn.)
+    \item $\mu_X(B) = \mathbb{P}(X^{-1}(B)) = \mathbb{P}(\{X \in B\}) = \mathbb{P}(X \in B)$ (abuse not.)
+    \item $F_X(x) = \mathbb{P}(X \leq x) = \mathbb{P}(\{\omega\in\Omega : X(\omega) \in (-\infty, x]\}) = \mu_X((-\infty, x])$ for all $x \in \mathbb{R}$ (cdf)
+    \begin{itemize}
+        \item $F(x) \in [0,1]$ for all $x \in \mathbb{R}$
+        \item If $x \leq y$ then $F(x) \leq F(y)$
+        \item If $x_n \nearrow x$, then $\lim_{n\to\infty} F(x_n) = F(x^-)$
+        \item If $x_n \searrow x$, then $\lim_{n\to\infty} F(x_n) = F(x^+) = \mathbb{P}(X = x)$
+        \item $F$ is right continuous
+        \item Theorem: For $\alpha,\beta \geq 0$ and $\alpha+\beta \geq 1$, $F$ decomposed as \\ $F(x) = \alpha F_d(x) + \beta F_{\text{a.c.}}(x) + (1-\alpha-\beta)F_{\text{s.c.}}(x)$
+    \end{itemize}
+    \item Types of random variables
+    \begin{itemize}
+        \item Indicator function. For $A \in \mathcal{F}$, $X(\omega) = \mathbb{I}_A(\omega)$ (1 if $\omega\in A$, 0 otherwise). Also, $\mathbb{E}X := \mathbb{P}(A)$
+        \item Simple r.v. For any finite $n \geq 1$, $A_1, \dots, A_n \in \mathcal{F}$ and $b_1, \dots, b_n \in \mathbb{R}$, $X(\omega) = \sum_{i=1}^n b_i \mathbb{I}_{A_i}(\omega)$. $\mathbb{E}X := \sum_{i=1}^n b_i \mathbb{E}(\mathbb{I}_{A_i})$
+        \item Limit of a simple r.v. $X(\omega) = \sum_{i=1}^\infty b_i \mathbb{I}_{A_i}(\omega)$. \\ $\displaystyle\mathbb{E}X := \lim_{n\to\infty} \mathbb{E}X_n$
+        \item Non-negative r.v. Theorem: any non-negative r.v. can be written as the pointwise (on $\Omega$) limit of some sequence of simple r.v.s $\{X_n\}$, i.e. $\displaystyle\lim_{n\to\infty} X_n(\omega) = X(\omega)$ for all $\omega\in\Omega$
+        \item Arbitrary r.v. $X$ written as the difference of two non-negative r.v., $X^+(\omega) = \max\{X(\omega), 0\}, X^-(\omega) = \max\{-X(\omega), 0\}$, \\ $X(\omega) = X^+(\omega) - X^-(\omega)$. $\mathbb{E}X := \mathbb{E}X^+ - \mathbb{E}X^-$
+    \end{itemize}
+    \item Monotone Convergence: Let $0 \leq X_1 \leq X_2 \leq \cdots$ for ``almost all" $\omega\in\Omega$. Then $\displaystyle X = \lim_{n\to\infty}X_n$ exists, and $\displaystyle\lim_{n\to\infty} \mathbb{E}X_n = \mathbb{E}X$
+    \item Fatou: Let $X_1, X_2, \dots$ be a sequence of non-negative r.v.s, and $\displaystyle X(\omega) := \liminf_{n\to\infty} X_n(\omega)$. Then $\displaystyle\mathbb{E}X \leq \liminf_{n\to\infty} \mathbb{E}X_n$.
+    \item Reverse Fatou: Let $X_1, X_2, \dots$ be a sequence of r.v.s and $Y$ be a non-negative r.v. with $\mathbb{E}Y < \infty$, s.t. $X_n \leq Y$ for all $n$ for ``almost all" $\omega\in\Omega$. Also define $\displaystyle X(\omega) := \limsup_{n\to\infty} X_n(\omega)$. Then $\limsup_{n\to\infty} \mathbb{E}X_n \leq \mathbb{E}X$.
+    \item Domainted Convergence: Let $|X_n| \leq Y$ almost surely for some r.v. $Y$ with $\mathbb{E}Y < \infty$, and assume $X = \lim_{n\to\infty} X_n$ almost surely exists. Then $\lim_{n\to\infty} \mathbb{E}X_n = \mathbb{E}X$.
+    \item Let $X_1, X_2, \dots$ be arbitrary r.v.s and let $X$ be another r.v. all defined on a common probability space $(\Omega, \mathcal{F}, \mathbb{P})$. Convergences:
+    \begin{itemize}
+        \item Pointwise: $\lim_{n\to\infty} X_n(\omega) = X(\omega)$ for all $\omega \in \mathbb{R}$
+        \item Almost sure: $\mathbb{P}(\lim_{n\to\infty}X_n = X) = 1, X_n \stackrel{\text{a.s.}}{\to}X$
+        \item $\mathbb{P}$: $\lim_{n\to\infty} \mathbb{P}(|X_n - X| \geq \varepsilon) = 0$ for all $\varepsilon > 0$, $X_n \stackrel{\mathbb{P}}{\to} X$
+        \item Distribution: Let the r.v.s have corresponding cdfs $F_1, F_2, \dots$ and $F$. $\lim_{n\to\infty} F_n(x) = F(x)$ for all $x \in \mathbb{R}$ s.t. $F(x)$ is cts
+        \item $Lp$ norm ($p \geq 1$): Let the sequence of r.v.s satisfy $\mathbb{E}(|X_n|^p) < \infty$ and $\mathbb{E}(|X|^p) < \infty$. $\lim_{n\to\infty} \mathbb{E}(|X_n - X|^p) = 0$, $X_n \stackrel{Lp}{\to} X$
+        \item Pointwise $\implies$ almost sure $\implies \mathbb{P} \implies$ distn
+        \item $Lq \implies Lp \implies \mathbb{P}$, for $q \geq p \geq 1$
+    \end{itemize}
+    \item LLN (weak): Let $X_1, X_2, \dots$ be an iid sequence of r.v.s with common mean $\mu < \infty$. Then $\frac{1}{n}\sum_{i=1}^n X_i \stackrel{\mathbb{P}}{\to} \mu$
+    \item LLN (strong): Under same assumptions as LLN (weak), $\frac{1}{n}\sum_{i=1}^n X_i \stackrel{\text{a.s.}}{\to} \mu$
+\end{itemize}
+
+\end{document}
+
